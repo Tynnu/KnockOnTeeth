@@ -4,12 +4,9 @@
 <meta charset="UTF-8">
 <title>KnockOnTeeth.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Knock on teeth - because wood burn.">
+<meta name="author" content="Marcel">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="canonical" href="https://www.knockonteeth.com/"/>
-<meta name="description" content="Knock on teeth - because wood burn."/>
-<meta name="robots" content="index, follow">
-<meta name="keywords" content="knock, on, teeth, tooth, hand, quote, quotes, random, czech, czechia, michaela"/>
-<meta name="author" content="Marcel"/>
 
 <style>
 html, body {
@@ -18,7 +15,6 @@ html, body {
     width: 100%;
     height: 100%;
     background: #8fb6e7;
-    color: #000;
     font-family: system-ui, sans-serif;
     overflow: hidden;
 }
@@ -28,6 +24,8 @@ header {
     padding: 20px 0 10px;
     font-size: clamp(24px, 8vw, 48px);
     font-weight: bold;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive, system-ui, sans-serif;
+    color: #000;
 }
 
 main {
@@ -56,14 +54,15 @@ main {
     left: 50%;
     transform: translateX(-50%);
     top: 100%;
-    margin-top: -20px;
-    font-size: 24px;
-    font-family: cursive, system-ui, sans-serif;
+    margin-top: -20px;           /* slight overlap on GIF */
+    font-size: clamp(16px, 5vw, 24px);
+    font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive, system-ui, sans-serif;
     opacity: 0.9;
-    width: max-content;
-    max-width: 94vw;
+    width: 90vw;                  /* allows expansion across viewport */
+    max-width: 1000px;            /* optional cap for very large screens */
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
 }
 
 footer {
@@ -81,54 +80,46 @@ footer a {
     margin-right: 10px;
 }
 
-/* Overlay behind modal */
+/* Privacy overlay and modal */
 #privacyOverlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3); /* semi-transparent black */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
     z-index: 999;
 }
 
-/* Privacy modal */
 #privacyNotice {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%) translateY(30px);
-    background-color: #fffff8;
-    color: #000;
-    padding: 30px 20px 20px;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px 15px;
+    background: #fffff8;
     border-radius: 12px;
-    max-width: 90vw;
-    width: 400px;
     text-align: center;
     line-height: 1.5;
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    z-index: 1000;
-    transition: background-color 0.2s, transform 0.3s, opacity 0.3s;
     opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 1000;
+    box-sizing: border-box;
 }
 
-/* Modal open state */
 #privacyNotice.show {
     display: block;
     transform: translate(-50%, -50%) translateY(0);
     opacity: 1;
 }
 
-/* Close button */
 .closeBtn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: #8fb6e7;
+    top: 10px; right: 10px;
+    width: 30px; height: 30px;
+    background: #8fb6e7;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -136,14 +127,11 @@ footer a {
     align-items: center;
 }
 
-/* Cross inside button */
-.closeBtn:before,
-.closeBtn:after {
+.closeBtn:before, .closeBtn:after {
     content: '';
     position: absolute;
-    width: 2px;
-    height: 16px;
-    background-color: #000;
+    width: 2px; height: 16px;
+    background: #000;
 }
 
 .closeBtn:before { transform: rotate(45deg); }
@@ -171,14 +159,11 @@ footer a {
     © Marcel <span id="year"></span>
 </footer>
 
-<!-- Overlay -->
 <div id="privacyOverlay"></div>
-
-<!-- Privacy Modal -->
 <div id="privacyNotice">
     <div class="closeBtn" id="closePrivacy"></div>
     <h2>Privacy Notice</h2>
-    <p>This website only contains a clickable GIF and text. No personal data is collected by this website, and no cookies or trackers are used. Visiting this website does not require providing any personal information.</p>
+    <p>This website only contains a clickable GIF and text. No personal data is collected, and no cookies or trackers are used. Visiting this website does not require any personal information.</p>
 </div>
 
 <script>
@@ -211,11 +196,16 @@ const captions = [
 	"Czech is just Polish in cursive.",
 	"Without me, you would have no quotes.",
 	"I want to be from the streets.",
-	"Arrêté! I never had french, but it sounds right."];
+	"Arrêté! I never had french, but it sounds right."]; // Add your quotes here
+let lastIndex = -1;
 
 gifWrapper.addEventListener("click", ()=>{
+    let idx;
+    do { idx = Math.floor(Math.random() * captions.length); } 
+    while(idx === lastIndex && captions.length > 1);
+    lastIndex = idx;
+    captionEl.textContent = captions[idx];
     gifImage.src = gifImage.src.split("?")[0] + "?t=" + Date.now();
-    captionEl.textContent = captions[Math.floor(Math.random()*captions.length)];
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
