@@ -50,13 +50,13 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    width: 100%;
+    text-align: center;
 }
 
 .gif-wrapper {
+    position: relative; /* caption positioned relative to GIF */
+    display: inline-block;
     cursor: pointer;
 }
 
@@ -72,10 +72,16 @@ main {
 }
 
 .caption {
-    min-height: 1.5em; /* reserve space to prevent jump */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;           /* directly below GIF */
+    margin-top: -20px;     /* spacing */
     font-size: 24px;
     font-family: 'Baloo 2', system-ui, sans-serif;
     opacity: 0.9;
+    width: max-content;
+    max-width: 90vw;     /* prevent overflow on small screens */
     text-align: center;
 }
 </style>
@@ -88,8 +94,8 @@ main {
 <main>
     <div class="gif-wrapper" id="gifWrapper">
         <img id="gifImage" src="knock_dynamic.gif" alt="">
+        <div class="caption" id="caption">&nbsp;</div> <!-- caption now inside gif-wrapper -->
     </div>
-    <div class="caption" id="caption">&nbsp;</div> <!-- reserve space initially -->
 </main>
 
 <footer>
@@ -102,7 +108,7 @@ main {
     const gifImage = document.getElementById("gifImage");
     const captionEl = document.getElementById("caption");
     const captions = [
-        "Homeless is better than... a slut.",
+       "Homeless is better than... a slut.",
         "I am not a mother. I am a cat mother.",
         "My culture is alcoholism and castles.",
         "Loud minority radio mix.",
@@ -129,22 +135,20 @@ main {
 	"I want to be from the streets.",
 	"Arrêté! I never had french, but it sounds right."
     ];
-    let captionIndex = 0;
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
     document.getElementById("gifWrapper").addEventListener("click", () => {
-        // Restart GIF by forcing reload (plays once now)
+        // Restart GIF
         const src = gifImage.src.split("?")[0]; 
         gifImage.src = src + "?t=" + Date.now();
 
-        // Rotate caption
+        // Show random caption
         const randomIndex = Math.floor(Math.random() * captions.length);
-captionEl.textContent = captions[randomIndex];
+        captionEl.textContent = captions[randomIndex];
     });
 })();
 </script>
 
 </body>
 </html>
-
