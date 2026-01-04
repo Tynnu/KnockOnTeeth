@@ -20,11 +20,11 @@ html, body {
 }
 
 header {
-    text-align: center;
-    padding: 20px 0 10px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive, system-ui, sans-serif;
     font-size: clamp(24px, 8vw, 48px);
     font-weight: bold;
-    font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive, system-ui, sans-serif;
+    text-align: center;
+    padding: 20px 0 10px;
     color: #000;
 }
 
@@ -50,16 +50,16 @@ main {
 }
 
 .caption {
+    font-family: "Comic Sans MS", "Comic Sans", cursive, system-ui, sans-serif;
+    font-size: clamp(16px, 5vw, 24px);
+    opacity: 0.9;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: 100%;
-    margin-top: -20px;           /* slight overlap on GIF */
-    font-size: clamp(16px, 5vw, 24px);
-    font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive, system-ui, sans-serif;
-    opacity: 0.9;
-    width: 90vw;                  /* allows expansion across viewport */
-    max-width: 1000px;            /* optional cap for very large screens */
+    margin-top: -20px;
+    width: 90vw;
+    max-width: 1000px;
     text-align: center;
     white-space: normal;
     word-break: break-word;
@@ -232,3 +232,4 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
