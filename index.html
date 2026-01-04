@@ -19,15 +19,17 @@ html, body {
     overflow: hidden;
 }
 
+/* Header */
 header {
-    font-family: "Trebuchet MS", Verdana, Geneva, system-ui, sans-serif;
-    font-size: clamp(24px, 8vw, 48px);
+    font-family: "Comic Sans MS", "Trebuchet MS", Arial, system-ui, sans-serif;
+    font-size: clamp(32px, 9vw, 60px); /* bigger and responsive */
     font-weight: bold;
     text-align: center;
     padding: 20px 0 10px;
     color: #000;
 }
 
+/* Main GIF wrapper */
 main {
     position: absolute;
     top: 50%;
@@ -49,15 +51,16 @@ main {
     user-select: none;
 }
 
+/* Caption */
 .caption {
-    font-family: "Trebuchet MS", Verdana, Geneva, system-ui, sans-serif;
-    font-size: clamp(16px, 5vw, 24px);
-    opacity: 0.9;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: 100%;
-    margin-top: -20px;
+    margin-top: -20px;           /* overlap GIF */
+    font-family: "Comic Sans MS", "Trebuchet MS", Arial, system-ui, sans-serif;
+    font-size: clamp(20px, 6vw, 30px); /* larger and responsive */
+    opacity: 0.9;
     width: 90vw;
     max-width: 1000px;
     text-align: center;
@@ -65,6 +68,7 @@ main {
     word-break: break-word;
 }
 
+/* Footer */
 footer {
     position: absolute;
     bottom: 10px;
@@ -115,6 +119,7 @@ footer a {
     opacity: 1;
 }
 
+/* Close button */
 .closeBtn {
     position: absolute;
     top: 10px; right: 10px;
@@ -196,7 +201,7 @@ const captions = [
 	"Czech is just Polish in cursive.",
 	"Without me, you would have no quotes.",
 	"I want to be from the streets.",
-	"Arrêté! I never had french, but it sounds right."]; // Add your quotes here
+	"Arrêté! I never had french, but it sounds right."];
 let lastIndex = -1;
 
 gifWrapper.addEventListener("click", ()=>{
@@ -232,5 +237,3 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
-
-
