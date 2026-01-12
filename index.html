@@ -247,13 +247,17 @@ function shuffleCaptions() {
 shuffleCaptions();
 
 gifWrapper.addEventListener("click", () => {
-    clearTimeout(loaderTimeout); // cancel loader if active
-    captionEl.classList.remove("fade-out"); // optional if you have fade
+    // Stop the loader safely
+    loaderDone = true;
+    clearTimeout(loaderTimeout);
+    
+    // Remove fade class so the new quote doesn't fade out
+    captionEl.classList.remove("fade-out");
 
     // If shuffled array is empty, reshuffle
     if (shuffledCaptions.length === 0) shuffleCaptions();
 
-    // Pop the next caption from shuffled list
+    // Show next quote
     const caption = shuffledCaptions.pop();
     captionEl.textContent = caption;
 
@@ -285,6 +289,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
