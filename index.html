@@ -66,6 +66,7 @@ main {
     text-align: center;
     white-space: normal;
     word-break: break-word;
+	min-width: 20ch;
 }
 
 .caption.fade-out {
@@ -184,11 +185,14 @@ const captionEl = document.getElementById("caption");
 // Initial loader message
 captionEl.textContent = "checking for updates";
 let dots = 0;
-setInterval(() => {
+const dotTimer = setInterval(() => {
     dots = (dots + 1) % 4;
     captionEl.textContent = "checking for updates" + ".".repeat(dots);
 }, 500);
-setTimeout(() => captionEl.textContent = "", 2000);
+setTimeout(() => {
+    clearInterval(dotTimer);
+    captionEl.textContent = "";
+}, 2000);
 	
 const captions = [
 	"Homeless is better than... a slut.",
@@ -259,6 +263,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
