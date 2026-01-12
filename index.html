@@ -184,17 +184,20 @@ const captionEl = document.getElementById("caption");
 	
 let loaderDone = false;
 
-// show loader
-captionEl.textContent = "czeching for updates...";
-const loaderTimeout = setTimeout(() => {
-    if (!loaderDone) {
-        captionEl.classList.add("fade-out");
+// ---- Loader Setup ----
+const captionEl = document.getElementById("caption");
+captionEl.textContent = "checking for updates...";
 
-        setTimeout(() => {
-            captionEl.textContent = "";
-            captionEl.classList.remove("fade-out");
-        }, 600);
-    }
+let loaderTimeout, fadeTimeout;
+let loaderDone = false;
+
+// loader fades out after 2 seconds
+loaderTimeout = setTimeout(() => {
+    captionEl.classList.add("fade-out");
+    fadeTimeout = setTimeout(() => {
+        captionEl.textContent = "";
+        captionEl.classList.remove("fade-out");
+    }, 600); // fade duration
 }, 2000);
 	
 const captions = [
@@ -233,31 +236,26 @@ const captions = [
 	"I need to put more filter to the stuff I say."];
 let lastIndex = -1;
 
-// Make a shuffled copy of your captions
 let shuffledCaptions = [];
 function shuffleCaptions() {
-    shuffledCaptions = [...captions]; // copy original
+    shuffledCaptions = [...captions];
     for (let i = shuffledCaptions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCaptions[i], shuffledCaptions[j]] = [shuffledCaptions[j], shuffledCaptions[i]];
     }
 }
-
-// Initialize shuffle
 shuffleCaptions();
 
+// ---- GIF Click Handler ----
 gifWrapper.addEventListener("click", () => {
-    // Stop the loader safely
+    // Cancel loader & fade if still pending
     loaderDone = true;
     clearTimeout(loaderTimeout);
-    
-    // Remove fade class so the new quote doesn't fade out
+    clearTimeout(fadeTimeout);
     captionEl.classList.remove("fade-out");
 
-    // If shuffled array is empty, reshuffle
+    // Show next quote without repeats
     if (shuffledCaptions.length === 0) shuffleCaptions();
-
-    // Show next quote
     const caption = shuffledCaptions.pop();
     captionEl.textContent = caption;
 
@@ -289,6 +287,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
