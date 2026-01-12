@@ -184,37 +184,18 @@ const captionEl = document.getElementById("caption");
 	
 let loaderDone = false;
 
-const loaderText = "checking for updates";
-const letters = loaderText.split('');
-let current = 0;
-const totalDuration = 2000; // 2 seconds
-const tick = totalDuration / letters.length; // duration per letter
-
-captionEl.textContent = loaderText;
-
-const loaderInterval = setInterval(() => {
-    if (loaderDone) return;
-
-    // underline letters progressively
-    captionEl.innerHTML = letters.map((c, i) => {
-        return i <= current ? `<span style="text-decoration:underline">${c}</span>` : c;
-    }).join('');
-
-    current++;
-    if (current >= letters.length) current = letters.length - 1; // stop at full underline
-}, tick);
-
+// show loader
+captionEl.textContent = "checking for updates...";
 const loaderTimeout = setTimeout(() => {
-    loaderDone = true;
-    clearInterval(loaderInterval);
+    if (!loaderDone) {
+        captionEl.classList.add("fade-out");
 
-    // fade out
-    captionEl.classList.add("fade-out");
-    setTimeout(() => {
-        captionEl.textContent = "";
-        captionEl.classList.remove("fade-out");
-    }, 600);
-}, totalDuration);
+        setTimeout(() => {
+            captionEl.textContent = "";
+            captionEl.classList.remove("fade-out");
+        }, 600);
+    }
+}, 2000);
 	
 const captions = [
 	"Homeless is better than... a slut.",
@@ -289,6 +270,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
