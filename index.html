@@ -233,16 +233,31 @@ const captions = [
 	"I need to put more filter to the stuff I say."];
 let lastIndex = -1;
 
-gifWrapper.addEventListener("click", ()=>{
-    loaderDone = true;
-    clearTimeout(loaderTimeout);
-    captionEl.classList.remove("fade-out");
+// Make a shuffled copy of your captions
+let shuffledCaptions = [];
+function shuffleCaptions() {
+    shuffledCaptions = [...captions]; // copy original
+    for (let i = shuffledCaptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledCaptions[i], shuffledCaptions[j]] = [shuffledCaptions[j], shuffledCaptions[i]];
+    }
+}
 
-    let idx;
-    do { idx = Math.floor(Math.random() * captions.length); } 
-    while(idx === lastIndex && captions.length > 1);
-    lastIndex = idx;
-    captionEl.textContent = captions[idx];
+// Initialize shuffle
+shuffleCaptions();
+
+gifWrapper.addEventListener("click", () => {
+    clearTimeout(loaderTimeout); // cancel loader if active
+    captionEl.classList.remove("fade-out"); // optional if you have fade
+
+    // If shuffled array is empty, reshuffle
+    if (shuffledCaptions.length === 0) shuffleCaptions();
+
+    // Pop the next caption from shuffled list
+    const caption = shuffledCaptions.pop();
+    captionEl.textContent = caption;
+
+    // Refresh GIF
     gifImage.src = gifImage.src.split("?")[0] + "?t=" + Date.now();
 });
 
@@ -270,6 +285,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
