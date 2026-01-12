@@ -68,6 +68,11 @@ main {
     word-break: break-word;
 }
 
+.caption.fade-out {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
 /* Footer */
 footer {
     position: absolute;
@@ -175,6 +180,17 @@ footer a {
 const gifWrapper = document.getElementById("gifWrapper");
 const gifImage = document.getElementById("gifImage");
 const captionEl = document.getElementById("caption");
+	
+// Initial loader message
+captionEl.textContent = "czeching for updates...";
+setTimeout(() => {
+    captionEl.classList.add("fade-out");
+    setTimeout(() => {
+        captionEl.textContent = "";
+        captionEl.classList.remove("fade-out");
+    }, 600);
+}, 2000);
+	
 const captions = [
 	"Homeless is better than... a slut.",
 	"I am not a mother. I am a cat mother.",
@@ -244,6 +260,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
