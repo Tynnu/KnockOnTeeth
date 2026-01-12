@@ -183,15 +183,16 @@ const gifImage = document.getElementById("gifImage");
 const captionEl = document.getElementById("caption");
 	
 // Initial loader message
-captionEl.textContent = "checking for updates";
-let dots = 0;
-const dotTimer = setInterval(() => {
-    dots = (dots + 1) % 4;
-    captionEl.textContent = "checking for updates" + ".".repeat(dots);
-}, 500);
-setTimeout(() => {
-    clearInterval(dotTimer);
-    captionEl.textContent = "";
+let loaderDone = false;
+// show loader
+captionEl.textContent = "checking for updates...";
+const loaderTimeout = setTimeout(() => {
+    if (loaderDone) return;
+    captionEl.classList.add("fade-out");
+    setTimeout(() => {
+        if (!loaderDone) captionEl.textContent = "";
+        captionEl.classList.remove("fade-out");
+    }, 600);
 }, 2000);
 	
 const captions = [
@@ -231,6 +232,10 @@ const captions = [
 let lastIndex = -1;
 
 gifWrapper.addEventListener("click", ()=>{
+    loaderDone = true;
+    clearTimeout(loaderTimeout);
+    captionEl.classList.remove("fade-out");
+
     let idx;
     do { idx = Math.floor(Math.random() * captions.length); } 
     while(idx === lastIndex && captions.length > 1);
@@ -263,6 +268,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
