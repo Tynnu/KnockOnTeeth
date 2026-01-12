@@ -182,14 +182,13 @@ const gifImage = document.getElementById("gifImage");
 const captionEl = document.getElementById("caption");
 	
 // Initial loader message
-captionEl.textContent = "czeching for updates...";
-setTimeout(() => {
-    captionEl.classList.add("fade-out");
-    setTimeout(() => {
-        captionEl.textContent = "";
-        captionEl.classList.remove("fade-out");
-    }, 600);
-}, 2000);
+captionEl.textContent = "checking for updates";
+let dots = 0;
+setInterval(() => {
+    dots = (dots + 1) % 4;
+    captionEl.textContent = "checking for updates" + ".".repeat(dots);
+}, 500);
+setTimeout(() => captionEl.textContent = "", 2000);
 	
 const captions = [
 	"Homeless is better than... a slut.",
@@ -260,6 +259,7 @@ privacyOverlay.onclick = closePrivacyModal;
 
 </body>
 </html>
+
 
 
 
